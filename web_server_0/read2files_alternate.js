@@ -4,7 +4,6 @@ console.log('NodeJs Interpreter starts executing Javascript code')
 
 /* Async programming *****************************************************/
 const fs = require('fs')
-
 // global variables
 let file1Content = null
 let file2Content = null

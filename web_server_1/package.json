@@ -1,0 +1,17 @@
+{
+    "name": "web_server_1",
+    "version": "1.0.0",
+    "description": "web server using http module without express",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Aakash Singh",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.2"
+    },
+    "devDependencies": {
+        "eslint": "^8.6.0"
+    }
+}
