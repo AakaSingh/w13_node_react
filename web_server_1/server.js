@@ -149,6 +149,7 @@ app.get('/seasons', function (req, res) {
     pageData.navitems += '<a href="/"> Home </a> '
     pageData.navitems += '<a href="/seasons"> Seasons </a> '
     pageData.navitems += '<a href="/form_post.html"> form </a> '
+    pageData.navitems += '<a href="/customer_search_form.html"> Customer Search </a> '
     const seasons = ['summer', 'winter', 'spring', 'fall']
     pageData.content = '<table>'
     for (let i = 0; i < seasons.length; i++) {
@@ -156,6 +157,39 @@ app.get('/seasons', function (req, res) {
     }
     pageData.content += '</table>'
     res.render('new_template', pageData)
+})
+
+app.post('/customer_search_id', function (req, res) {
+    const pageData = {}
+    console.log(req.body)
+    const customerId = req.body.customer_id
+    DB.connect()
+    DB.queryParams('select * from customers where customernumber = $1', customerId, function (customerInfo) {
+        let html = ''
+        if (customerInfo.rowCount === 0) {
+            html = 'No customers found with that id'
+        } else {
+            html += '<table><tr><th>Cutomer Id</th><th>Customer Name</th><th>Last Name</th><th>First Name</th><th>City</th></tr>'
+            html += '<tr><td>' +
+                    customerInfo.rows[0].customernumber + '</td><td>' +
+                    customerInfo.rows[0].customername + '</td><td>' +
+                    customerInfo.rows[0].contactlastname + '</td><td>' +
+                    customerInfo.rows[0].contactfirstname + '</td><td>' +
+                    customerInfo.rows[0].city + '</td></tr>'
+            html += '</table>'
+        }
+        pageData.content = html
+        pageData.title = 'Customer Details'
+        pageData.description = 'Customer Details'
+        pageData.author = 'Aakash Singh'
+        pageData.navitems = "<a href='/products'> Products </a>"
+        pageData.navitems += '<a href="/byebye"> Bye Bye </a> '
+        pageData.navitems += '<a href="/"> Home </a> '
+        pageData.navitems += '<a href="/seasons"> Seasons </a> '
+        pageData.navitems += '<a href="/form_post.html"> form </a> '
+        res.render('new_template', pageData)
+        DB.disconnect()
+    })
 })
 
 app.listen(8000, function () {
