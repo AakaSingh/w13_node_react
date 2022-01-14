@@ -45,13 +45,13 @@ app.get('/filecall',
 
 const DB = require('./src/dao.js')
 
-app.get('/customers',
-    function (res, req) {
-        DB.connect()
-        DB.query('select * from customers', function (result) {
-            console.log(result)
-        })
-    })
+// app.get('/customers',
+//     function (res, req) {
+//         DB.connect()
+//         DB.query('select * from customers', function (result) {
+//             console.log(result)
+//         })
+//     })
 
 app.get('/orders', function (request, response) {
     DB.connect()
@@ -164,7 +164,7 @@ app.post('/customer_search_id', function (req, res) {
     console.log(req.body)
     const customerId = req.body.customer_id
     DB.connect()
-    DB.queryParams('select * from customers where customernumber = $1', customerId, function (customerInfo) {
+    DB.queryParams('select * from customers where customernumber = $1', [customerId], function (customerInfo) {
         let html = ''
         if (customerInfo.rowCount === 0) {
             html = 'No customers found with that id'
@@ -189,6 +189,51 @@ app.post('/customer_search_id', function (req, res) {
         pageData.navitems += '<a href="/form_post.html"> form </a> '
         res.render('new_template', pageData)
         DB.disconnect()
+    })
+})
+
+app.get('/customers', function (request, response) {
+    const DB = require('./src/dao')
+    DB.connect()
+    DB.query('SELECT * from customers', function (customers) {
+        const customersJSON = { customers: customers.rows }
+        const customersJSONString = JSON.stringify(customersJSON, null, 4)
+        // set content type
+        response.writeHead(200, { 'Content-Type': 'application/json' })
+        // send out a string
+        response.end(customersJSONString)
+    })
+})
+
+app.get('/employees', function (request, response) {
+    const DB = require('./src/dao')
+    DB.connect()
+    DB.query('SELECT * from employees', function (employees) {
+        const customersJSON = { employees: employees.rows }
+        const customersJSONString = JSON.stringify(customersJSON, null, 4)
+        // set content type
+        response.writeHead(200, { 'Content-Type': 'application/json' })
+        // send out a string
+        response.end(customersJSONString)
+    })
+})
+
+// delete one customer
+// note you cannot delete customers with orders
+// to know customers that don't have an order run this query
+// SELECT * from customers
+// LEFT JOIN orders on customers.customernumber = orders.customernumber
+// WHERE ordernumber IS NULL
+// ORDER BY customers.customernumber ASC
+// result: you can delete customernumber 477,480,481 and others
+app.delete('/customers/:id', function (request, response) {
+    const id = request.params.id // read the :id value send in the URL
+    const DB = require('./src/dao')
+    DB.connect()
+    DB.queryParams('DELETE from customers WHERE customernumber=$1', [id], function (customers) {
+        response.writeHead(200, { 'Content-Type': 'text/html' })
+        // send out a string
+        response.end('OK customer deleted')
     })
 })
 
