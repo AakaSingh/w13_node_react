@@ -1,12 +1,40 @@
 'use strict'
 
 const myMod = require('./src/tableinfile.js')
+const assert = require('assert')
 
 myMod.getTable('./cars.json', function (content) {
     console.log(content)
+    assert.deepStrictEqual(content, [
+        {
+            id: 100,
+            username: 'aaka98',
+            age: 55
+        },
+        {
+            id: 101,
+            userName: 'jcote',
+            age: 66
+        },
+        {
+            id: 102,
+            userName: 'pmartineau',
+            age: 99
+        },
+        {
+            id: 105,
+            username: 'aaka',
+            age: 23
+        }
+    ])
 })
 // myMod.getRec('./users.json', 101, function (content) {
 //     console.log(content)
+// assert.deepStrictEqual(content, {
+//     id: 101,
+//     userName: 'jcote',
+//     age: 66
+// })
 // })
 
 // const newRecord = { id: 105, username: 'aaka', age: 23 }
