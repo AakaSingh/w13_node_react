@@ -48,16 +48,26 @@ function addRec (filename, data) {
     // callback function to be executed after the file has been read
         (err, fileContent) => {
             if (err) throw err
+            let index = -1
             const content = JSON.parse(fileContent)
-            content.push(data)
-            fs.unlink(filename, (err) => {
-                if (err) throw err
-                const newData = JSON.stringify(content, null, 2)
-                fs.writeFile(filename, newData, (err) => {
+            for (let i = 0; i < content.length; i++) {
+                if (data.id === content[i].id) {
+                    index = i
+                }
+            }
+            if (index !== -1) {
+                console.log('id already exists')
+            } else {
+                content.push(data)
+                fs.unlink(filename, (err) => {
                     if (err) throw err
-                    console.log('record added')
+                    const newData = JSON.stringify(content, null, 2)
+                    fs.writeFile(filename, newData, (err) => {
+                        if (err) throw err
+                        console.log('record added')
+                    })
                 })
-            })
+            }
         }
     )
 }
