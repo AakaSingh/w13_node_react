@@ -3,7 +3,7 @@
 const myMod = require('./src/tableinfile.js')
 const assert = require('assert')
 
-myMod.getTable('./cars.json', function (content) {
+myMod.getTable('./users.json', function (content) {
     console.log(content)
     assert.deepStrictEqual(content, [
         {
@@ -28,14 +28,14 @@ myMod.getTable('./cars.json', function (content) {
         }
     ])
 })
-// myMod.getRec('./users.json', 101, function (content) {
-//     console.log(content)
-// assert.deepStrictEqual(content, {
-//     id: 101,
-//     userName: 'jcote',
-//     age: 66
-// })
-// })
+myMod.getRec('./users.json', 107, function (content) {
+    console.log(content)
+    assert.deepStrictEqual(content, {
+        id: 101,
+        userName: 'jcote',
+        age: 66
+    })
+})
 
 // const newRecord = { id: 105, username: 'aaka', age: 23 }
 // myMod.addRec('./users.json', newRecord)

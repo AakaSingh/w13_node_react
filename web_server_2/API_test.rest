@@ -1,0 +1,58 @@
+
+GET http://localhost:8000/users/ HTTP/1.1
+
+###
+
+GET http://localhost:8000/users/101 HTTP/1.1
+
+###
+
+POST http://localhost:8000/users/add HTTP/1.1
+Content-Type: application/json
+
+{ "id": 110, "username": "newUser123", "age": 32}
+
+###
+
+POST http://localhost:8000/users/update HTTP/1.1
+Content-Type: application/json
+
+{ "id": 101, "username": "oldUser123", "age": 32}
+
+###
+POST http://localhost:8000/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "filename": "./cars.json",
+    "content": {
+      "cars": {
+        "Nissan": [
+                {
+                    "model": "Sentra",
+                    "doors": 4
+                },
+                {
+                    "model": "Maxima",
+                    "doors": 4
+                },
+                {
+                    "model": "Skyline",
+                    "doors": 2
+                }
+                ],
+                "Ford": [
+                {
+                    "model": "Taurus",
+                    "doors": 4
+                },
+                {
+                    "model": "Escort",
+                    "doors": 4
+                }
+            ]
+        }
+    }
+  }
+
+

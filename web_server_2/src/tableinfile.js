@@ -7,7 +7,7 @@ function getTable (filename, resultCallback) {
     // callback function to be executed after the file has been read
         (err, fileContent) => {
             if (err) throw err
-            resultCallback(fileContent)
+            resultCallback(JSON.parse(fileContent))
         })
 }
 
@@ -23,6 +23,7 @@ function getRec (filename, id, resultCallback) {
                     index = i
                 }
             }
+            console.log(index)
             if (index === -1) {
                 throw new Error('ID does not exist!')
             } else {

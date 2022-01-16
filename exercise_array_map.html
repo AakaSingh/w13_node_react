@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>this is a test</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>this is a test</h1>
+    <table id="demo">
+
+    </table>
+</body>
+<script>
+    let USER_ARRAY = [
+        { id: 1, name: 'Martin', age: 45 },
+        { id: 2, name: 'Pierre', age: 15 },
+        { id: 3, name: 'Josee', age: 14 },
+        { id: 4, name: 'Melanie', age: 32 },
+        { id: 5, name: 'Sonia', age: 24 }
+    ]
+    //Excercise 1
+    //USER_ARRAY.map(user => {
+    //    delete user.age;
+    //  return user;
+    //});
+    //console.log(USER_ARRAY);
+
+    //Excercise 2
+
+    //let f2 = (user) => {
+    //    return (user.age > 15)
+    //}
+
+    //console.log(USER_ARRAY.filter(f2))
+
+    //Excercise 3
+    //function myAvg(total, currentValue) {
+    //    return total + currentValue.age
+    //}
+    //console.log(USER_ARRAY.reduce(myAvg, 0) / USER_ARRAY.length)
+
+    //Exercise 4
+    let f4 = (currentValue) => {
+        return "<tr><td>" + currentValue.id + "</td><td>" + currentValue.name + "</td><td>" + currentValue.age + "</td></tr>"
+    }
+
+    let f5 = (html, currentValue) => {
+        return html + currentValue
+    }
+
+    document.getElementById("demo").innerHTML = (USER_ARRAY.map(f4)).reduce(f5, '')
+
+
+
+</script>
+
+</html>
