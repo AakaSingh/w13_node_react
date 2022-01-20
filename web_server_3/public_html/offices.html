@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+
+<head>
+    <title>Offices Page</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="number" id="officeId" onchange="getOffice()"><br>
+    <form method="post">
+        <table>
+            <tr>
+                <td>officecode</td>
+                <td><input type="number" name="code" id="code" required></td>
+            </tr>
+            <tr>
+                <td>Address Line 1</td>
+                <td><input type="text" name="addr1" id="addr1"></td>
+            </tr>
+            <tr>
+                <td>Address Line 2</td>
+                <td><input type="text" name="addr2" id="addr2"></td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td><input type="text" name="city" id="city"></td>
+            </tr>
+            <tr>
+                <td>State</td>
+                <td><input type="text" name="state" id="state"></td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td><input type="text" name="country" id="country"></td>
+            </tr>
+            <tr>
+                <td>Postal Code</td>
+                <td><input type="text" name="pcode" id="pcode"></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="text" name="phone" id="phone"></td>
+            </tr>
+            <tr>
+                <td>Territory</td>
+                <td><input type="text" name="territory" id="territory"></td>
+            </tr>
+        </table>
+        <button onclick="saveOffice()">Save</button>
+        <button onclick="deleteOffice()">Delete</button>
+        <input type="reset" value="Clear form to add new office"><br>
+    </form><br>
+
+    <button onclick="getAllOffices()">Get All Offices</button><br>
+
+    <div id="response_data"></div>
+</body>
+
+<script>
+    /* AJAX USING FETCH LIBRARY ***************************************************************/
+    function saveOffice() {
+        let data = {
+            code: document.getElementById("code").value,
+            addr1: document.getElementById("addr1").value,
+            addr2: document.getElementById("addr2").value,
+            city: document.getElementById("city").value,
+            state: document.getElementById("state").value,
+            country: document.getElementById("country").value,
+            phone: document.getElementById("phone").value,
+            pcode: document.getElementById("pcode").value,
+            territory: document.getElementById("territory").value
+        }
+        fetch("http://localhost:8000/offices",
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data)
+            }
+        )
+            .then((response) => {
+
+                if (!response.ok) {
+                    // handle response code other than 200 because
+                    return ""
+                } else {
+                    //server responds with text/html, execute second .then when done
+                    return response.text()
+                }
+            })
+
+            .then(
+                (server_text) => {
+                    // show text reply on page
+                    document.getElementById("response_data").innerHTML = server_text
+                },
+
+                (error) => {
+                    // only NO RESPONSE URL errors will trigger this code
+                    document.getElementById("response_data").innerHTML = "AJAX error: URL wrong or unreachable, see console"
+                }
+            )
+    }
+
+    function getOffice() {
+
+        let code = document.getElementById("officeId").value
+
+        fetch("http://localhost:8000/offices/" + code,
+            {
+                method: 'GET',
+            }
+        )
+            .then((response) => {
+                //executes after we get a response from the server
+                console.log(response)//show the whole FETCH response object on console
+
+                if (!response.ok) {
+                    // handle errors, response code other than 200 because
+                    return {} //empty object, no data
+                } else {
+                    //ok code 200, convert data in FETCH response to JSON data
+                    return response.json()
+                }
+                //execute second .then when done
+            })
+            .then(
+                //executes after the first .then
+                (data) => {// catch the data returned by first .then
+                    //check for not empty data object
+                    if (Object.keys(data).length !== 0) {
+                        // execute only when code is 200
+                        let officeInfo = data.officeInfo;
+                        document.getElementById("code").value = officeInfo[0].officecode
+                        document.getElementById("addr1").value = officeInfo[0].addressline1
+                        document.getElementById("addr2").value = officeInfo[0].addressline2
+                        document.getElementById("city").value = officeInfo[0].city
+                        document.getElementById("state").value = officeInfo[0].state
+                        document.getElementById("country").value = officeInfo[0].country
+                        document.getElementById("phone").value = officeInfo[0].phone
+                        document.getElementById("pcode").value = officeInfo[0].postalcode
+                        document.getElementById("territory").value = officeInfo[0].territory
+                    }
+                },
+
+                (error) => {
+                    // only NO RESPONSE URL errors will trigger this code
+                    document.getElementById("response_data").innerHTML = "AJAX error: URL wrong or unreachable, see console"
+                }
+            )
+    }// end of getCustomers function
+
+    function getAllOffices() {
+
+        fetch("http://localhost:8000/offices",
+            {
+                method: 'GET',
+            }
+        )
+            .then((response) => {
+                console.log(response)
+                if (!response.ok) {
+                    // handle errors, response code other than 200 because
+                    return {} //empty object, no data
+                } else {
+                    //ok code 200, convert data in FETCH response to JSON data
+                    return response.json()
+                }
+                //execute second .then when done
+            })
+            .then(
+                //executes after the first .then
+                (data) => {// catch the data returned by first .then
+                    //check for not empty data object
+                    if (Object.keys(data).length !== 0) {
+                        let offices = data.offices;
+                        //TO DO display all customters in a table
+                        let html = "<table>"
+                        for (let i = 0; i < offices.length; i++) {
+                            html += '<tr><td>' +
+                                offices[i].officecode + '</td><td>' +
+                                offices[i].addressline1 + '</td><td>' +
+                                offices[i].addressline2 + '</td><td>' +
+                                offices[i].city + '</td><td>' +
+                                offices[i].state + '</td><td>' +
+                                offices[i].country + '</td><td>' +
+                                offices[i].phone + '</td><td>' +
+                                offices[i].postalcode + '</td><td>' +
+                                offices[i].territory + '</td><tr>'
+                        }
+                        html += "</table>"
+                        document.getElementById("response_data").innerHTML = html
+                    }
+                },
+
+                (error) => {
+                    // only NO RESPONSE URL errors will trigger this code
+                    document.getElementById("response_data").innerHTML = "AJAX error: URL wrong or unreachable, see console"
+                }
+            )
+    }// end of getCustomers function
+
+
+    function deleteOffice() {
+        let code = document.getElementById("code").value
+
+        fetch("http://localhost:8000/offices/" + code,
+            {
+                method: 'DELETE'
+            }
+        )
+            .then((response) => {
+
+                if (!response.ok) {
+                    // handle response code other than 200 because
+                    return ""
+                } else {
+                    //server responds with text/html, execute second .then when done
+                    return response.text()
+                }
+            })
+
+            .then(
+                (server_text) => {
+                    // show text reply on page
+                    document.getElementById("response_data").innerHTML = server_text
+                },
+
+                (error) => {
+                    // only NO RESPONSE URL errors will trigger this code
+                    document.getElementById("response_data").innerHTML = "AJAX error: URL wrong or unreachable, see console"
+                }
+            )
+    }
+</script>
+
+</html>
