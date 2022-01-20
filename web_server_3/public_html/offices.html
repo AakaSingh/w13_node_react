@@ -14,7 +14,7 @@
 
 <body>
     <input type="number" id="officeId" onchange="getOffice()"><br>
-    <form method="post">
+    <form>
         <table>
             <tr>
                 <td>officecode</td>
@@ -97,7 +97,6 @@
                     return response.text()
                 }
             })
-
             .then(
                 (server_text) => {
                     // show text reply on page
@@ -222,13 +221,12 @@
 
                 if (!response.ok) {
                     // handle response code other than 200 because
-                    return ""
+                    return "not deleted"
                 } else {
                     //server responds with text/html, execute second .then when done
                     return response.text()
                 }
             })
-
             .then(
                 (server_text) => {
                     // show text reply on page

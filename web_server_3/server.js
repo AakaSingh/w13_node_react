@@ -49,7 +49,6 @@ app.delete('/offices/:code', function (request, response) {
     DB.connect()
     DB.queryParams('DELETE from offices WHERE officecode=$1', [code], function (customers) {
         response.writeHead(200, { 'Content-Type': 'text/html' })
-        // send out a string
         response.end('OK office deleted')
     })
 })
