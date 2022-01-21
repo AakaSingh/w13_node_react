@@ -1,7 +1,7 @@
 import React from 'react'
 
-function lister(onevalue) {
-    return <option value={onevalue['code']}>{onevalue['name']}</option>
+function lister(onevalue, index) {
+    return <option key={index} value={onevalue['code']}>{onevalue['name']}</option>
 }
 
 class SelectList extends React.Component {
