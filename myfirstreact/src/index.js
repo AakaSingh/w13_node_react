@@ -19,7 +19,7 @@ class Page extends React.Component{
                 <p>Hello World !</p>
                 <SelectList array={provinces}/>
                 <SelectList array={countries}/>
-                <Footer authorName="Stéphane Lapointe"/>
+                <Footer authorName="Aakash Singh"/>
             </div>
         )
     }
