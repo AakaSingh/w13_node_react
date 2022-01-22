@@ -77,7 +77,21 @@ class Offices extends React.Component {
         )
     }
 
+    previousChange = (event) =>{
+        let x = this.state.offices_index
+            if(x > 0){
+                x = x - 1
+            }
+        this.setState({offices_index: x })
+    }
 
+    nextChange = (event) =>{
+        let x = this.state.offices_index
+            if(x < this.state.offices_count - 1){
+                x = x + 1
+            }
+        this.setState({offices_index: x })
+    }
 
     // display the offices table
     render() {
@@ -98,6 +112,8 @@ class Offices extends React.Component {
                             <tr><th>Country</th><td>{this.state.offices_data[this.state.offices_index].country}</td></tr>
                             </tbody>
                         </table>
+                        <button onClick={(event)=>this.previousChange(event)}>Previous</button>
+                        <button onClick={(event)=>this.nextChange(event)}>Next</button>
                     </div>
                 )
             }else{
