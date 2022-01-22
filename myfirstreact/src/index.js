@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals'
 import Footer from './Footer.js'
 import Header from './Header.js'
 import SelectList from './SelectList.js'
+import HeaderWithButton from './HeaderWithButton'
+import LoginForm from './LoginForm'
 
 const provinces=[ {code:'QC',name:'Quebec'},{code:'ON',name:'Ontario'},{code:'NB',name:'New-Brunswick'}]
 
@@ -16,6 +18,7 @@ class Page extends React.Component{
             return (
             <div>
                 <Header companyName="blabla.com"/>
+                <LoginForm username="aakash" pwd="thispass"></LoginForm>
                 <p>Hello World !</p>
                 <SelectList array={provinces}/>
                 <SelectList array={countries}/>
