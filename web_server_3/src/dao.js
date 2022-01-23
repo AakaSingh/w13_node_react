@@ -29,6 +29,7 @@ function query (sqlStr, resultCallback) {
     DB.query(sqlStr, (error, result) => {
         if (error) {
             console.log('Query Error:' + error)
+            resultCallback('error')
         } else {
             // console.log(result)
             // execute callback function (example display records)
@@ -43,6 +44,7 @@ function queryParams (sqlStr, params, resultCallback) {
     DB.query(sqlStr, params, (error, result) => {
         if (error) {
             console.log('Query Error:' + error)
+            resultCallback('error')
         } else {
             // console.log(result)
             // execute callback function (example display records)

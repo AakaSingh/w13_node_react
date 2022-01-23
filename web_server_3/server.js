@@ -48,8 +48,13 @@ app.delete('/offices/:code', function (request, response) {
     console.log(code)
     DB.connect()
     DB.queryParams('DELETE from offices WHERE officecode=$1', [code], function (customers) {
-        response.writeHead(200, { 'Content-Type': 'text/html' })
-        response.end('OK office deleted')
+        if (customers === 'error') {
+            response.writeHead(401, { 'Content-Type': 'text/html' })
+            response.end('Cannot Delete')
+        } else {
+            response.writeHead(200, { 'Content-Type': 'text/html' })
+            response.end('OK office deleted')
+        }
     })
 })
 

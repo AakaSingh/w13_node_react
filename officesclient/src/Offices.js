@@ -81,7 +81,6 @@ class Offices extends React.Component {
 
     deleteTable = (event) =>{
         let code = document.getElementById("code").placeholder
-        document.getElementById('response_data').innerHTML = 'Cannot Be Deleted'
 
         fetch("http://localhost:8000/offices/" + code,
             {
@@ -92,7 +91,7 @@ class Offices extends React.Component {
 
                 if (!response.ok) {
                     // handle response code other than 200 because
-                    return "not deleted"
+                    return "cannot delete entry"
                 } else {
                     //server responds with text/html, execute second .then when done
                     this.refetchContent()
@@ -102,7 +101,7 @@ class Offices extends React.Component {
             .then(
                 (server_text) => {
                     // show text reply on page
-                    document.getElementById('response_data').innerHTML =''
+                    document.getElementById('response_data').innerHTML = server_text
                 },
 
                 (error) => {
@@ -141,7 +140,6 @@ class Offices extends React.Component {
                     return ""
                 } else {
                     //server responds with text/html, execute second .then when done
-                    document.getElementById('response_data').innerHTML =''
                     this.clearForm()
                     this.refetchContent()
                     return response.text()
