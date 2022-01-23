@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Offices from './Offices.js'
+import Header from './Header.js'
+import Footer from './Footer.js'
+
 
 ReactDOM.render(
   <React.StrictMode>
+    <Header companyName="Final Practical Exam"/>
     <Offices />
+    <Footer authorName="Aakash Singh"/>
   </React.StrictMode>,
   document.getElementById('root')
 );
