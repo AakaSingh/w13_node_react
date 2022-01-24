@@ -1,0 +1,10 @@
+table {
+    margin: 20px;
+    border: 1px solid px;
+    background-color: aquamarine;
+    width: 40%;
+}
+
+tr, td {
+    border: 1px solid black
+}
