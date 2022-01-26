@@ -48,6 +48,7 @@ class Playlist extends React.Component {
             )
     }
 
+
     deleteTrack = (event) =>{
         console.log(event.target.value)
         fetch("http://localhost:8000/tracks/" + event.target.value,
