@@ -38,15 +38,20 @@ app.delete('/tracks/:id', function (request, response) {
 
 app.post('/tracks', function (request, response) {
     DB.connect()
-    DB.queryParams('select * from track where playlist_id= $1', [request.body.pid], function (tracks) {
+    DB.queryParams('select * from track where title= $1', [request.body.title], function (tracks) {
         if (tracks.rowCount === 0) {
-            DB.queryParams('insert into track values($1,$2,$3,$4,$5)', [
-                request.body.id,
-                request.body.pid,
+            let pid = 1
+            DB.queryParams('select * from playlist where title = $1', [request.body.playlist], function (playlist) {
+                if (playlist.rowCount !== 0) {
+                    pid = playlist[0].id
+                }
+            })
+            DB.queryParams('INSERT INTO track(playlist_id, title, uri, master_id) VALUES ($1,$2,$3,$4)', [
+                pid,
                 request.body.title,
                 request.body.uri,
                 request.body.master_id
-            ], function (offices) {
+            ], function (tracks) {
                 response.writeHead(200, { 'Content-Type': 'text/html' })
                 // send out a string
                 response.end('Track Added')

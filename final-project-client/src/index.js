@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Discogs from './Discogs.js';
 import Header from './Header.js';
 import './index.css';
 import Playlist from './Playlist.js';
@@ -10,7 +9,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Header heading="Discog App"/>
     <Playlist/>
-    <Discogs/>
   </React.StrictMode>,
   document.getElementById('root')
 );

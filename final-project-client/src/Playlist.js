@@ -1,5 +1,6 @@
 import React from 'react'
-import styles from './Playlist.Module.css'
+import Discogs from './Discogs'
+import styles from './Playlist.module.css'
 
 class Playlist extends React.Component {
     constructor (props) {
@@ -7,7 +8,8 @@ class Playlist extends React.Component {
         this.state = {
             playlist : {},
             tracks :[],
-            error : null
+            error : null,
+            update : true
         }
     }
 
@@ -15,7 +17,7 @@ class Playlist extends React.Component {
         this.dataFetch()
     }
 
-    dataFetch(){
+    dataFetch = () =>{
         fetch("http://localhost:8000/tracks",
             {
                 method: 'GET',
@@ -47,7 +49,6 @@ class Playlist extends React.Component {
                 }
             )
     }
-
 
     deleteTrack = (event) =>{
         console.log(event.target.value)
@@ -83,14 +84,14 @@ class Playlist extends React.Component {
     rowCreator = (onevalue,index) =>{
         return (<tr key={index}>
                     <td>
-                        {onevalue.title}<br/>
+                        <h3>{onevalue.title}</h3><br/>
                         ID : {onevalue.id}<br/>
                         Playlist : {onevalue.name}<br/>
-                        {onevalue.uri}<br/>
+                        URI : <a href={"http://www.discogs.com/"+onevalue.uri}>{onevalue.uri}</a><br/>
                         master_id : {onevalue.master_id}
                     </td>
                     <td>
-                        <button value={onevalue.id} onClick={(event)=> this.deleteTrack(event)}>Delete</button>
+                        <button className={styles.button} value={onevalue.id} onClick={(event)=> this.deleteTrack(event)}>Delete</button>
                     </td>
                 </tr>)
     }
@@ -98,14 +99,18 @@ class Playlist extends React.Component {
     render () {
         return (
             <div>
-                <table className={styles.table}>
-                    <tbody>
-                        {(this.state.tracks).map(this.rowCreator)}
-                    </tbody>
-                </table>
-                <span id='response_data'></span>
+                <div className={styles.playlistdiv}>
+                    <table className={styles.styledtable}>
+                        <tbody>
+                            {(this.state.tracks).map(this.rowCreator)}
+                        </tbody>
+                    </table>
+                    <span id='response_data'></span>
+                </div>
+                <div className={styles.discogsdiv}>
+                    <Discogs onAddTrack={this.dataFetch}/>
+                </div>
             </div>
-
             )
         }
     }

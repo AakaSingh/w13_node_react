@@ -1,10 +1,63 @@
-table {
-    margin: 20px;
-    border: 1px solid px;
-    background-color: aquamarine;
-    width: 40%;
+.styledtable {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    width: 95%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-tr, td {
-    border: 1px solid black
+.styledtable th,
+.styledtable td {
+    padding: 12px 15px;
+}
+
+.styledtable tbody tr {
+    border-bottom: 2px solid #009879;
+    margin: 5px;
+}
+
+.styledable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styledtable tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styledtable tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+.playlistdiv {
+    float: left;
+    width: 30%;
+    height: 100%;
+}
+
+.discogsdiv {
+    width: 70%;
+    float: right;
+}
+
+.button {
+    background-color: red;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
