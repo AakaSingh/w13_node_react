@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './Header.Module.css'
+import styles from './Header.module.css'
 
 class Header extends React.Component {
 
@@ -7,8 +7,8 @@ class Header extends React.Component {
         if(this.props.heading){
         return (
             <header>
-                <div  className={styles.topbar}>
-                    {this.props.heading}
+                <div  className={styles.header}>
+                    <h1>{this.props.heading}</h1>
                 </div>
             </header>
         )} else{

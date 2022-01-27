@@ -12,7 +12,7 @@ app.use(cors())
 
 app.get('/tracks', function (request, response) {
     DB.connect()
-    DB.query('select track.id as id, track.title as title, playlist.title as name, uri, master_id from track, playlist where playlist_id = playlist.id', function (tracks) {
+    DB.query('select track.id as id, track.title as title, playlist.title as name, uri, master_id, thumb from track, playlist where playlist_id = playlist.id', function (tracks) {
         const tracksJSON = { tracks: tracks.rows }
         const tracksJSONString = JSON.stringify(tracksJSON, null, 4)
         // set content type
@@ -46,11 +46,12 @@ app.post('/tracks', function (request, response) {
                     pid = playlist[0].id
                 }
             })
-            DB.queryParams('INSERT INTO track(playlist_id, title, uri, master_id) VALUES ($1,$2,$3,$4)', [
+            DB.queryParams('INSERT INTO track(playlist_id, title, uri, master_id, thumb) VALUES ($1,$2,$3,$4,$5)', [
                 pid,
                 request.body.title,
                 request.body.uri,
-                request.body.master_id
+                request.body.master_id,
+                request.body.thumb
             ], function (tracks) {
                 response.writeHead(200, { 'Content-Type': 'text/html' })
                 // send out a string

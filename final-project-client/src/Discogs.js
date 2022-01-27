@@ -49,7 +49,8 @@ class Discogs extends React.Component {
                 playlist: this.state.albums[event.target.value].style,
                 title: this.state.albums[event.target.value].title,
                 uri: this.state.albums[event.target.value].uri,
-                master_id: this.state.albums[event.target.value].master_id
+                master_id: this.state.albums[event.target.value].master_id,
+                thumb: this.state.albums[event.target.value].thumb
             }
         fetch("http://localhost:8000/tracks",
             {
@@ -108,7 +109,7 @@ class Discogs extends React.Component {
                         Search
                     </button>
                 </div>
-                <div id='recieved_data'>
+                <div id='recieved_data' className={styles.dataDiv}>
                     {this.state.albums.map(this.rowCreator)}
                 </div>
             </div>

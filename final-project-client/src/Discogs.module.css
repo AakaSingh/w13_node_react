@@ -33,28 +33,38 @@ body {
 }
 
 .searchTerm {
+    font-size: 15px;
     width: 100%;
-    border: 3px solid #00B4CC;
+    border: 3px solid #1abc9c;
     border-right: none;
     padding: 5px;
-    height: 20px;
+    height: 30px;
     border-radius: 5px 0 0 5px;
     outline: none;
     color: #9DBFAF;
 }
 
 .searchTerm:focus {
-    color: #00B4CC;
+    color: black;
 }
 
 .searchButton {
     width: 80px;
-    height: 36px;
-    border: 1px solid #00B4CC;
-    background: #00B4CC;
+    height: 46px;
+    border: 1px solid #1abc9c;
+    background: #1abc9c;
     text-align: center;
     color: #fff;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
     font-size: 20px;
+}
+
+.dataDiv {
+    overflow: scroll;
+    height: 600px;
+}
+
+.dataDiv::-webkit-scrollbar {
+    display: none;
 }

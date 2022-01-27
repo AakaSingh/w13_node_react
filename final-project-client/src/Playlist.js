@@ -91,6 +91,7 @@ class Playlist extends React.Component {
                         master_id : {onevalue.master_id}
                     </td>
                     <td>
+                        <img src={onevalue.thumb} alt='cover' className={styles.cover}/>
                         <button className={styles.button} value={onevalue.id} onClick={(event)=> this.deleteTrack(event)}>Delete</button>
                     </td>
                 </tr>)
@@ -102,6 +103,7 @@ class Playlist extends React.Component {
                 <div className={styles.playlistdiv}>
                     <table className={styles.styledtable}>
                         <tbody>
+                            <th colSpan='2'> Your Playlist</th>
                             {(this.state.tracks).map(this.rowCreator)}
                         </tbody>
                     </table>
