@@ -13,5 +13,6 @@ Content-Type: application/json
         "title": "The Eminem Show",
         "playlist": "Rap",
         "uri": "google.com",
-        "master_id": "12423"
+        "master_id": "12423",
+        "thumb" : "some.jpeg"
     }

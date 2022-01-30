@@ -31,8 +31,11 @@ class Discogs extends React.Component {
                 //executes after the first .then
                 (data) => {// catch the data returned by first .then
                     //check for not empty data object
-                    if (Object.keys(data).length !== 0) {
+                    if (data.results.length !== 0) {
                         this.setState({albums : data.results})
+                    }
+                    else{
+                        document.getElementById("artist").value = 'artist not found'
                     }
                 },
 
@@ -93,7 +96,7 @@ class Discogs extends React.Component {
                             <b>{onevalue.title}</b><br/><br/>
                             Style : {onevalue.style}<br/>
                             Year Release : {onevalue.year}<br/>
-                            <a href={"http://www.discogs.com/"+onevalue.uri}>More Information</a><br/>
+                            <a href={"http://www.discogs.com"+onevalue.uri}>More Information</a><br/>
                             master_id : {onevalue.master_id}<br/>
                             <button className={styles.searchButton} value={index} onClick={(event)=> this.addTrack(event)}>Add</button>
                         </div>
